@@ -1,0 +1,39 @@
+# Node.js (server) dependencies and related files
+/server/node_modules/
+/server/npm-debug.log*
+/server/yarn-debug.log*
+
+# Server-specific build and config files
+/server/build/
+/server/dist/
+/server/.env
+
+# Client (React) build and dependencies
+/client/node_modules/
+/client/build/
+/client/.env
+/client/.env.local
+/client/.env.development.local
+/client/.env.production.local
+
+# Optional: Lock files (choose one if you want to lock dependencies)
+# /package-lock.json
+# /yarn.lock
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files (VSCode, WebStorm, etc.)
+.vscode/
+.idea/
+
+# Coverage (if using tests)
+coverage/
+
+# Temporary or backup files
+*~
+*.swp
