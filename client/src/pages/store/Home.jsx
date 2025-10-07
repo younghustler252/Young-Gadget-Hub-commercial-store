@@ -214,57 +214,92 @@ function Home() {
 			</section>
 
 			<section className="px-6 md:px-16 py-12 bg-white">
-	<h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Hot Deals 🔥</h2>
+				<h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Hot Deals 🔥</h2>
 
-	{promoLoading ? (
-		<p className="text-gray-500">Loading deals...</p>
-	) : promos.length === 0 ? (
-		<p className="text-gray-500">No promo deals available at the moment.</p>
-	) : (
-		<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-			{promos.map(product => (
-				<Link
-					to={`/product/${product._id}`}
-					key={product._id}
-					className="bg-gray-50 hover:bg-red-50 border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition-all"
+				{promoLoading ? (
+					<p className="text-gray-500">Loading deals...</p>
+				) : promos.length === 0 ? (
+					<p className="text-gray-500">No promo deals available at the moment.</p>
+				) : (
+					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+						{promos.map(product => (
+							<Link
+								to={`/product/${product._id}`}
+								key={product._id}
+								className="bg-gray-50 hover:bg-red-50 border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition-all"
+							>
+								<img
+									src={product.image}
+									alt={product.name}
+									className="w-full h-40 object-cover mb-3 rounded"
+								/>
+								<h3 className="text-md font-semibold text-gray-800">{product.name}</h3>
+
+								<div className="text-sm text-gray-600 mt-1">
+									<span className="capitalize">{product.condition}</span> •{" "}
+									<span>{product.category}</span>
+								</div>
+
+								<div className="mt-2">
+									<p className="text-red-600 font-bold text-lg">
+										₦{product.promoPrice.toLocaleString()}
+									</p>
+									<p className="text-sm line-through text-gray-400">
+										₦{product.price.toLocaleString()}
+									</p>
+								</div>
+							</Link>
+						))}
+					</div>
+				)}
+			</section>
+			<section className="px-6 md:px-16 py-12 bg-blue-50">
+  				<h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Why Shop With Us</h2>
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-gray-700">
+					<div className="p-4 bg-white rounded shadow-sm">
+						<FiSmartphone className="text-3xl text-blue-600 mb-2" />
+						<h4 className="font-semibold">Tested UK Used Phones</h4>
+						<p className="text-sm">Strictly tested and verified before listing.</p>
+    				</div>
+					<div className="p-4 bg-white rounded shadow-sm">
+						<FiRefreshCcw className="text-3xl text-blue-600 mb-2" />
+						<h4 className="font-semibold">Swap & Upgrade</h4>
+						<p className="text-sm">Bring your old phone, top up, and walk away with better.</p>
+					</div>
+					<div className="p-4 bg-white rounded shadow-sm">
+						<FiBox className="text-3xl text-blue-600 mb-2" />
+						<h4 className="font-semibold">Fast Nationwide Delivery</h4>
+						<p className="text-sm">We deliver to all 36 states, fast & secure.</p>
+					</div>
+					<div className="p-4 bg-white rounded shadow-sm">
+						<FiArrowRight className="text-3xl text-blue-600 mb-2" />
+						<h4 className="font-semibold">Pay on Delivery (Lagos only)</h4>
+						<p className="text-sm">Enjoy confidence shopping—pay when it arrives.</p>
+					</div>
+				</div>
+			</section>
+
+			<a
+			href="https://wa.me/2348080061178"
+			target="_blank"
+			rel="noopener noreferrer"
+			className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg z-50 hover:bg-green-600"
+			>
+				<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 32 32"
+				fill="currentColor"
+				className="w-6 h-6"
 				>
-					<img
-						src={product.image}
-						alt={product.name}
-						className="w-full h-40 object-cover mb-3 rounded"
-					/>
-					<h3 className="text-md font-semibold text-gray-800">{product.name}</h3>
+					<path d="M16 .396c-8.837 0-16 7.163-16 16 0 2.813.729 5.566 2.104 7.996L0 32l8.055-2.071A15.865 15.865 0 0016 31.604c8.837 0 16-7.163 16-16S24.837.396 16 .396zm0 29.208c-2.488 0-4.937-.65-7.086-1.882l-.507-.293-4.783 1.23 1.272-4.664-.328-.532A13.13 13.13 0 012.867 16c0-7.275 5.923-13.198 13.198-13.198 7.276 0 13.199 5.923 13.199 13.198S23.276 29.604 16 29.604zm7.274-9.84c-.398-.199-2.355-1.16-2.72-1.293-.365-.133-.631-.199-.897.199s-1.033 1.293-1.267 1.561c-.232.266-.465.299-.863.1-.398-.199-1.68-.619-3.198-1.975-1.182-1.054-1.98-2.357-2.211-2.755-.232-.398-.025-.613.174-.812.178-.177.398-.464.597-.697.199-.232.266-.399.398-.664.133-.266.066-.498-.033-.697-.1-.199-.897-2.159-1.229-2.963-.324-.777-.654-.672-.897-.682l-.764-.01c-.232 0-.607.078-.925.373-.318.297-1.219 1.191-1.219 2.902s1.248 3.366 1.422 3.6c.174.232 2.455 3.748 5.949 5.253.832.359 1.48.572 1.986.732.834.265 1.592.228 2.19.139.668-.099 2.059-.84 2.35-1.652.291-.813.291-1.51.203-1.652-.087-.139-.318-.232-.716-.431z" />
+				</svg>
 
-					<div className="text-sm text-gray-600 mt-1">
-						<span className="capitalize">{product.condition}</span> •{" "}
-						<span>{product.category}</span>
-					</div>
+			</a>
 
-					<div className="mt-2">
-						<p className="text-red-600 font-bold text-lg">
-							₦{product.promoPrice.toLocaleString()}
-						</p>
-						<p className="text-sm line-through text-gray-400">
-							₦{product.price.toLocaleString()}
-						</p>
-					</div>
-				</Link>
-			))}
+
 		</div>
-	)}
-</section>
-
 
 			
-			{/* <section className="bg-blue-600 text-white py-6 text-center px-4">
-				<h3 className="text-xl font-semibold mb-2">Need Help Choosing?</h3>
-				<p className="mb-4">Talk to us on WhatsApp now. We'll recommend the best gadget for your budget.</p>
-				<a href="https://wa.me/8080061178" className="bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
-					Chat on WhatsApp
-				</a>
-			</section> */}
-
-		</div>
 	);
 }
 

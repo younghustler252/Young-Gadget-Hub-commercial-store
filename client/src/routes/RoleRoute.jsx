@@ -6,7 +6,7 @@ const RoleRoute = ({ allowedRoles, children }) => {
 
     if (loading) return <div>Loading...</div>;
 
-    if (!user || !allowedRoles.includes(user.role)) {
+    if (!user || !allowedRoles.includes(user.data.role)) {
         return <Navigate to="/" />;
     }
 

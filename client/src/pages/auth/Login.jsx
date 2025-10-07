@@ -14,12 +14,6 @@ function Login() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		const isOnLoginPage = window.location.pathname === "/login";
-		if (isAuthenticated && isOnLoginPage) {
-			navigate('/');
-		}
-	}, [isAuthenticated, navigate]);
 		
 
 
@@ -31,28 +25,38 @@ function Login() {
 	};
 
 	const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
+		e.preventDefault();
+		setLoading(true);
+		setError(null);
 
-        try {
-            const response = await login(formData);
-            const userData = response.data.user;
-            console.log("🧠 userData:", userData);
-             if (!userData.isVerified) {
-                navigate('/verify', {
-					state: {
-						identifier: formData.identifier, // email or phone
-						source: 'login' 
-					}
-				});
-            } 
-        } catch (err) {
-            setError(err.message || "Login failed. Try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
+	try {
+		const response = await login(formData);
+		const userData = response.data.user;
+		console.log("🧠 userData:", userData);
+
+		if (!userData.isVerified) {
+			// Redirect to verification page
+			navigate('/verify', {
+				state: {
+					identifier: formData.identifier,
+					source: 'login'
+				}
+			});
+		} else {
+			// ✅ Redirect based on role
+			if (userData.role === 'admin') {
+				navigate('/admin/dashboard');
+			} else {
+				navigate('/');
+			}
+		}
+		} catch (err) {
+			setError(err.message || "Login failed. Try again.");
+		} finally {
+			setLoading(false);
+		}
+	};
+
         
 
 
@@ -103,7 +107,6 @@ function Login() {
 
 				<div className="text-center text-sm text-gray-600 mt-4">
 					Don’t have an account?{" "}
-					{/* //this place is where am having the err */}
 					<Link to={routes.register} className="text-blue-600 hover:underline">
 						Sign up
 					</Link>

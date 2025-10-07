@@ -10,9 +10,8 @@ import Cart from '../pages/store/cart';
 // import About from '../pages/About';
 // import Contact from '../pages/Contact';
 
-// import AdminDashboard from '../pages/admin/Dashboard';
-// import UserDashboard from '../pages/user/Dashboard';
-
+import Dashboard from '../pages/admin/Dashboard';
+import AdminLayout from '../components/AdminLayout';
 import ProtectedRoute from './ProtectedRoute';
 import RoleRoute from './RoleRoute';
 import { routes } from './route';
@@ -33,11 +32,11 @@ const AppRouter = () => {
 
         {/* 🔐 Protected User Route */}
         <Route
-            path="/user/dashboard"
+            path={routes.Home}
             element={
             <ProtectedRoute>
                 <RoleRoute allowedRoles={['user']}>
-                {/* <UserDashboard /> */}
+                {/* <Home /> */}
                 </RoleRoute>
             </ProtectedRoute>
             }
@@ -49,14 +48,14 @@ const AppRouter = () => {
             element={
             <ProtectedRoute>
                 <RoleRoute allowedRoles={['admin']}>
-                {/* <AdminDashboard /> */}
+                <AdminLayout />
                 </RoleRoute>
             </ProtectedRoute>
             }
         />
         {/* 🔁 Fallback - redirect unknown routes */}
 
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
     </Routes>
   );
 };

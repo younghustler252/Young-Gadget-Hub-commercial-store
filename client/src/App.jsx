@@ -1,21 +1,22 @@
 import React from 'react';
-import AppRouter from './routes/AppRouter';
-import Header from './components/Header'; // ✅ make sure this path matches
-import AuthProvider from './context/AuthContext';
 import { useLocation } from 'react-router-dom';
+import AppRouter from './routes/AppRouter';
+import Header from './components/Header';
+import AuthProvider from './context/AuthContext';
 
 function App() {
-  const location = useLocation();
-  const minimalHeaderRoutes = ['/login', '/register'];
-  const isMinimalHeader = minimalHeaderRoutes.includes(location.pathname);
-  return (
-    <>
-      <AuthProvider> 
-        <Header minimal={isMinimalHeader} />
-        <AppRouter />
-      </AuthProvider>
-    </>
-  );
+	const location = useLocation();
+
+	const isMinimalHeader =
+		location.pathname.startsWith('/admin') ||
+		['/login', '/register'].includes(location.pathname);
+
+	return (
+		<AuthProvider>
+			{!isMinimalHeader && <Header />}
+			<AppRouter />
+		</AuthProvider>
+	);
 }
 
 export default App;
