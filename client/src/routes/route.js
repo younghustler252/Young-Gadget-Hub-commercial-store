@@ -16,4 +16,6 @@ export const routes = {
     Swap: '/swap',
     Deals: '/deals',
     Search: '/search', // already used in your header search
+
+    dashboard: '/admin/dashboard',
 };

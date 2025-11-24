@@ -14,6 +14,12 @@ function Login() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
+	useEffect(() => {
+		const isOnLoginPage = window.location.pathname === "/login";
+		if (isAuthenticated && isOnLoginPage) {
+			navigate('/');
+		}
+	}, [isAuthenticated, navigate]);
 		
 
 

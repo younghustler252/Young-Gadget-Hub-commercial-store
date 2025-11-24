@@ -1,16 +1,17 @@
-import { Navigate } from 'react-router-dom';
+// RoleRoute.jsx
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const RoleRoute = ({ allowedRoles, children }) => {
-    const { user, loading } = useAuth();
+const RoleRoute = ({ allowedRoles }) => {
+	const { user, loading } = useAuth();
 
-    if (loading) return <div>Loading...</div>;
+	if (loading) return <div>Loading...</div>;
 
-    if (!user || !allowedRoles.includes(user.data.role)) {
-        return <Navigate to="/" />;
-    }
+	if (!user || !allowedRoles.includes(user.data.role)) {
+		return <Navigate to="/" />;
+	}
 
-    return children;
+	return <Outlet />; // ✅ important for nested routing
 };
 
 export default RoleRoute;

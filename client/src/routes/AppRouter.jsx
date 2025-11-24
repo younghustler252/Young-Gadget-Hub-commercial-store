@@ -1,63 +1,62 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+// routes/AppRouter.jsx
+import { Routes, Route, Navigate } from "react-router-dom"
 
-import Login from '../pages/auth/Login';
-import Register from '../pages/auth/Register';
-import Home from '../pages/store/Home';
-import Verify from '../pages/auth/Verify';
-import Products from '../pages/store/Products';
-import ProductDetails from '../pages/store/ProductDetails';
-import Cart from '../pages/store/cart';
-// import About from '../pages/About';
-// import Contact from '../pages/Contact';
+import Login from "../pages/auth/Login"
+import Register from "../pages/auth/Register"
+import Verify from "../pages/auth/Verify"
 
-import Dashboard from '../pages/admin/Dashboard';
-import AdminLayout from '../components/AdminLayout';
-import ProtectedRoute from './ProtectedRoute';
-import RoleRoute from './RoleRoute';
-import { routes } from './route';
+import Home from "../pages/store/Home"
+import Products from "../pages/store/Products"
+import ProductDetails from "../pages/store/ProductDetails"
+import Cart from "../pages/store/cart"
+
+import Dashboard from "../pages/admin/Dashboard"
+import AdminProducts from "../pages/admin/Product"
+
+import ProtectedRoute from "./ProtectedRoute"
+import RoleRoute from "./RoleRoute"
+
+import AdminLayout from "../layout/AdminLayout"
+import UserLayout from "../layout/UserLayout"
+
+import { routes } from "./route"
 
 const AppRouter = () => {
-  return (
-    <Routes>
+	return (
+		<Routes>
+			<Route element={<UserLayout />}>
+				{/* 🔓 Public Store Routes */}
+				<Route path={routes.Home} element={<Home />} />
+				<Route path={routes.product} element={<Products />} />
+				<Route path={routes.productDetails} element={<ProductDetails />} />
+				<Route path={routes.cart} element={<Cart />} />
 
-        {/* 🔓 Public Routes */}
-        <Route path={routes.login} element={<Login />} />
-        <Route path={routes.verify} element={<Verify />} />
-        <Route path={routes.register} element={<Register />} /> 
-        <Route path={routes.Home} element={<Home />} />
-        <Route path={routes.product} element={<Products />} />
-        <Route path={routes.productDetails} element={<ProductDetails />} />
-        <Route path={routes.cart} element={<Cart />} />
+				{/* 🔓 Auth Routes */}
+				<Route path={routes.login} element={<Login />} />
+				<Route path={routes.register} element={<Register />} />
+				<Route path={routes.verify} element={<Verify />} />
+			</Route>
 
+			{/* 🔐 Protected User Area */}
+			<Route element={<ProtectedRoute><RoleRoute allowedRoles={['user']} /></ProtectedRoute>}>
+				<Route element={<UserLayout />}>
+					<Route path="/profile" element={<h1>User Profile</h1>} />
+					<Route path="/orders" element={<h1>Order History</h1>} />
+				</Route>
+			</Route>
 
-        {/* 🔐 Protected User Route */}
-        <Route
-            path={routes.Home}
-            element={
-            <ProtectedRoute>
-                <RoleRoute allowedRoles={['user']}>
-                {/* <Home /> */}
-                </RoleRoute>
-            </ProtectedRoute>
-            }
-        />
+			{/* 🔐 Protected Admin Area */}
+			<Route element={<ProtectedRoute><RoleRoute allowedRoles={['admin']} /></ProtectedRoute>}>
+				<Route element={<AdminLayout />}>
+					<Route path="/admin/dashboard" element={<Dashboard />} />
+          			<Route path="/admin/products" element={<AdminProducts />} />
+				</Route>
+			</Route>
 
-        {/* 🔐 Protected Admin Route */}
-        <Route
-            path="/admin/dashboard"
-            element={
-            <ProtectedRoute>
-                <RoleRoute allowedRoles={['admin']}>
-                <AdminLayout />
-                </RoleRoute>
-            </ProtectedRoute>
-            }
-        />
-        {/* 🔁 Fallback - redirect unknown routes */}
+			{/* ❌ Catch-All Redirect */}
+			<Route path="*" element={<Navigate to={routes.Home} replace />} />
+		</Routes>
+	)
+}
 
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
-    </Routes>
-  );
-};
-
-export default AppRouter;
+export default AppRouter

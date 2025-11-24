@@ -10,6 +10,15 @@ export const getProducts = async () => {
     }
 }
 
+export const createProduct = async (params) => {
+	try {
+		const { data } = await API.post('/Products', params);
+		return data;
+	} catch (error) {
+		handleError(error);
+	}
+}
+
 export const getProductById = async (id) => {
     try {
         const { data } = await API.get(`/Products/${id}`);
@@ -96,4 +105,33 @@ export const fetchPromoProducts = async () => {
 		console.error("Error fetching promo deals:", error.message);
 		return [];
 	}
+};
+
+export const getDashboardMetrics = async () => {
+	try {
+		const { data } = await API.get('dashboard/metrics');
+		return data;
+	} catch (error) {
+	
+		handleError(error);
+	}
+}
+
+export const searchProducts = async (query) => {
+  try {
+    const response = await API.get(`/products/search?q=${query}`);
+    
+    // Assuming the response structure looks like: { success: true, data: [...] }
+    if (response.data.success) {
+      return response.data;  // Return the data object
+    } else {
+      console.error("No results found");
+      return { success: false, data: [] };  // Handle cases with no results
+    }
+  } catch (error) {
+    console.error("Error searching products:", error);
+    
+    // Return an error structure if the request fails
+    return { success: false, message: "Failed to search products" };
+  }
 };
