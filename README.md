@@ -2,7 +2,7 @@
 
 🔗 Live Demo: https://young-gadget.netlify.app/
 
-📦 Repository: https://github.com/your-username/young-gadget
+📦 Repository: https://github.com/younghustler252/Young-Gadget-Hub-commercial-store
 
 📌 Overview
 
@@ -173,3 +173,4 @@ Commercial product thinking
 
 Young Tech
 Web Developer & Cybersecurity Enthusiast
+
